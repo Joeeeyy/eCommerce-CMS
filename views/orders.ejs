@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Admin Area | Orders</title>
+
+    <link href="/css/bootstrap.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/fonts/glyphicons-halflings-regular.ttf">
+    <link rel="stylesheet" href="/css/styles.css" type="text/css">
+
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+</head>
+
+<body>
+
+    <nav class="navbar navbar-default">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" datatarget="#navbar"
+                        aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/admin/home">Aapni Dukan</a>
+            </div>
+            <div id="navbar" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="/admin/home">Dashboard</a></li>
+                    <li><a href="/admin/categories">Categories</a></li>
+                    <li><a href="/admin/products">Products</a></li>
+                    <li><a href="/admin/users">Users</a></li>
+                    <li class="active"><a href="/admin/orders">Orders</a></li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/admin/auth/logout">Log Out</a></li>
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+
+    <header id="header">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-md-10">
+                    <h2 style="vertical-align: middle"><span class="glyphicon glyphicon-cog" style="margin-right: 6px;" aria-hidden="true"></span>Orders</h2>
+                </div>
+
+            </div>
+        </div>
+    </header>
+
+    <section id="breadcrumbs">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li><a href="/admin/home">Dashboard </a> </li>
+                <li>/</li>
+                <li class="active">Orders</li>
+            </ol>
+        </div>
+    </section>
+
+    <section id="main">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="list-group">
+                        <a href="#" class="list-group-item active main-color-bg">
+                            <span style="padding-right: 6px" class="glyphicon glyphicon-cog"></span>Orders
+                        </a>
+                        <a href="/admin/categories" class="list-group-item">
+                            <span style="margin-right: 6px" class="glyphicon glyphicon-folder-close"></span>
+                            Categories
+                            <span class="badge categoriesCount"><%= catCount %></span>
+                        </a>
+
+                        <a href="/admin/products" class="list-group-item">
+                            <i style="margin-right: 6px" class="far fa-list-alt"></i>
+                            Products
+                            <span class="badge" id="productsCount"><%= prodCount %></span>
+                        </a>
+
+                        <a href="/admin/orders" class="list-group-item">
+                            <i style="margin-right: 6px" class="fas fa-cart-plus"></i>
+                            Orders
+                            <span class="badge" id="ordersCount"><%= orderCount %></span>
+                        </a>
+
+                        <a href="/admin/users" class="list-group-item">
+                            <i style="margin-right: 6px" class="fas fa-users"></i>
+                            Users
+                            <span class="badge" id="usersCount"><%= userCount %></span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-md-9">
+                    <div class="panel panel-default">
+                        <div class="panel-heading main-color-bg">
+                            <h3 class="panel-title">Manage Client Orders</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="col-md-4">
+                                <div class="well dash-box">
+                                    <h2> <span style="margin-right:6px; text-align: center" class="glyphicon glyphicon-folder-close"></span> </h2> <!-- get value from db -->
+                                    <h4 class="categoriesCount">New Orders</h4>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="well dash-box">
+                                    <h2> <span style="margin-right: 6px" class="glyphicon glyphicon-folder-close"></span> </h2> <!-- get value from db -->
+                                    <h4 class="categoriesCount">Pending Orders</h4>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="well dash-box">
+                                    <h2> <span style="margin-right: 6px" class="glyphicon glyphicon-folder-close"></span></h2> <!-- get value from db -->
+                                    <h4 class="categoriesCount">Cancelled Orders</h4>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!-- All Orders Table -->
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">All Orders</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover align-middle">
+                                    <thead>
+                                        <tr>
+                                        <th>Product Title</th>
+                                        <th>Product Image</th>
+                                        <th>By Whom</th>
+                                        <th>Client Location</th>
+                                        <th>Time</th>
+                                        <th>Approve</th>
+                                        <th>Delete</th>
+                                    </tr>
+                                    </thead>
+
+                                    <% if (orderCount <= 0) { %>
+                                    <div class="no-orders">
+                                        <h3 class="text-center" style="color: #333333">
+                                            No Orders Yet..Hang in There Buddy!!!
+                                        </h3>
+                                    </div>
+                                    <% } else { %>
+
+                                    <% orders.forEach((order) => { %>
+                                    <td><%= order.prodTitle %></td>
+                                    <td><%= order.prodImage %></td>
+                                    <td><%= order.byWhom %></td>
+                                    <td><%= order.clientLocation %></td>
+                                    <td><%= order.time %></td>
+                                    <td>
+                                        <a href="/admin/orders/approve-order/<%= order._id %>">
+                                            <button class="btn btn-sm btn-primary">Approve</button>
+                                        </a>
+                                    </td>
+
+                                    <td>
+                                        <a href="/admin/orders/delete-order/<%= order._id %>">
+                                            <button class="btn btn-xs btn-danger">Reject</button>
+                                        </a>
+                                    </td>
+
+                                    <% }) %>
+
+                                    <% } %>
+
+                                    <tr>
+                                        <td>Nivea Face Wash</td>
+                                        <td>hapi@enjoy-life.com</td>
+                                        <td>XXX John Cena</td>
+                                        <td>London</td>
+                                        <td>5:49am</td>
+                                        <td>
+                                            <a href="/admin/orders/approve-order/<%=  %>">
+                                                <button class="btn btn-sm btn-primary">Approve</button>
+                                            </a>
+                                        </td>
+
+                                        <td>
+                                            <a href="/admin/orders/delete-order/<%= %>">
+                                                <button class="btn btn-xs btn-danger">Reject</button>
+                                            </a>
+                                        </td>
+                                    </tr>
+
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer
+            style="background-color: #333333;
+                                padding: 30px;
+                                color: white;
+                                margin-top: 30px;
+                                text-align: center">
+
+        <p>Copyright &copy; Aapni Dukan 2018</p>
+    </footer>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+    </body>
+</html>

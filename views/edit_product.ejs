@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:width="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Admin Area | Edit Product</title>
+
+        <link href="/css/bootstrap.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="/fonts/glyphicons-halflings-regular.ttf">
+        <link rel="stylesheet" href="/css/styles.css" type="text/css">
+
+        <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+        <script src="https://cdn.ckeditor.com/ckeditor5/1.0.0-alpha.2/classic/ckeditor.js"></script>
+
+    </head>
+
+    <body>
+
+        <nav class="navbar navbar-default">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" datatarget="#navbar"
+                        aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/admin/home">Aapni Dukan</a>
+            </div>
+            <div id="navbar" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="/admin/index">Dashboard</a></li>
+                    <li><a href="/admin/categories">Categories</a></li>
+                    <li class="active"><a href="/admin/products">Products</a></li>
+                    <li><a href="/admin/users">Users</a></li>
+                    <li><a href="/admin/orders">Orders</a></li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/admin/auth/logout">Log Out</a></li>
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+
+        <header id="header">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-md-10">
+                        <h2 style="vertical-align: middle"><span class="glyphicon glyphicon-cog" style="margin-right: 6px;" aria-hidden="true"></span>Edit Product</h2>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <br>
+
+        <section id="breadcrumbs">
+            <div class="container">
+                <ol class="breadcrumb">
+                    <li><a href="/admin/products">Products</a></li>
+                    <li>/</li>
+                    <li class="active">Edit Product</li>
+                </ol>
+            </div>
+        </section>
+        <br>
+
+        <section id="main">
+            <div class="container">
+
+                <form action="/admin/products/edit-product/<%= id %>" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+
+                        <div class="row">
+                            <div class="col-md-7" style="margin-right: 20px!important;" >
+                                <label>Title</label>
+                                <input value="<%= title %>" name="prod_title" class="form-control" type="text" placeholder="Product Title"> <br>
+
+                                <label>Desc</label>
+                                <textarea value="<%= desc %>" name="prod_desc" class="form-control" id="description_name" rows="8" cols="30" placeholder="Write Product Short Description"></textarea>
+                                <br>
+
+                                <label>Price</label>
+                                <input value="<%= price %>" type="number" name="prod_price" placeholder="Price" class="form-control">
+                                <br>
+
+                                <label>Quantity</label>
+                                <input value="<%= quantity %>" type="number" name="prod_qty" placeholder="Quantity" class="form-control">
+                                <br>
+
+                                <label>Status</label>
+                                <select name="prod_status" id="status" class="form-control">
+                                    <option value="ltd-stock">Limited Stock</option>
+                                    <option value="available">Available</option>
+                                    <option value="coming-soon">Coming Soon</option>
+                                </select>
+                                <br>
+
+                                <label>Category</label>
+                                <select name="prod_category" class="form-control">
+                                    <% categories.forEach((cat) => { %>
+                                    <option value="<%= cat.slug %>"><%= cat.title %></option>
+                                    <% }) %>
+                                </select> <br>
+
+                            </div>
+
+                            <div class="col-md-3-offset-2">
+                                <div class="form-group">
+                                    <label>Current Image</label>
+                                    <p>
+                                        <% if (image != ""){ %>
+                                            <img src="<%= image %>" alt="product Image"
+                                                 style="width: 240px; height: 200px; margin-top: 20px" id="productImg">
+                                        <% } else  { %>
+                                            <img src="http://res.cloudinary.com/aapni-dukan/image/upload/v1521246069/noimage.png"
+                                                 alt="product Image"
+                                                 style="width: 240px; height: 200px; margin: 20px" id="productImg">
+                                        <% } %>
+                                    </p>
+                                </div>
+                                <div class="form-group">
+                                    <label>Change Image</label>
+                                    <input name="product_img" class="selImg" type="file" accept="image/*" onchange="showImage.call(this)">
+                                    <img src="#" id="editProductImg" style="display: none; height: 200px; width: 240px; margin: 20px">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- TODO: DropZone and Cloudinary for Gallery Images -->
+
+                    </div>
+                    <input type="hidden" name="pimage" value="<%= image %>">
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </form>
+
+                <br><hr>
+
+                <h3 class="text-center">Product Gallery</h3>
+                <ul class="gallery">
+                    <% if (galleryImages != null) { %>
+                        <% galleryImages.forEach((gallery) => { %>
+                            <li>
+                                <img src="<%= gallery %>" alt="">
+                            </li>
+                            <a href="">
+                                <button type="button" class="btn btn-danger">Delete</button>
+                            </a>
+                        <% }) %>
+                    <% } else { %>
+                        <li class="text-center">No Gallery Images Found</li>
+                    <% } %>
+                </ul>
+
+                <form action="/product-gallery/<%= id %>" class="dropzone" id="galleryDropZone" method="post" enctype="multipart/form-data">
+                    <div class="fallback" style="color: #333333">
+                        <input name="gallery_images" type="file" accept="image/*" multiple>
+                    </div>
+                    <input type="submit" value="Upload">
+                </form>
+
+            </div>
+        </section>
+
+        <footer
+                style="background-color: #333333;
+                    padding: 30px;
+                    color: white;
+                    margin-top: 30px;
+                    text-align: center">
+
+            <p>Copyright &copy; Aapni Dukan 2018</p>
+        </footer>
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.1.1/basic.css"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.1.1/dropzone.css"/>
+        <script src="https://cdn.js.cloudflare.com/ajax/libs/dropzone/5.1.1/dropzone.js"></script>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="/js/bootstrap.js"></script>
+        <script src="//cdn.ckeditor.com/4.8.0/full/ckeditor.js"></script>
+
+        <script>
+
+            CKEDITOR.replace('description_name');
+
+            function showImage (){
+                if (this.files && this.files[0]){
+                    let r = new FileReader();
+                    r.onload = ((data) => {
+                        let img = document.getElementById("editProductImg");
+                        img.src = data.target.result;
+                        img.style.display = "block";
+                    });
+                    r.readAsDataURL(this.files[0]);
+                }
+            }
+
+            Dropzone.options.galleryDropZone = {
+                acceptedFiles: "image/*",
+                init: function () {
+                    this.on("queuecomplete", function(file){
+                        setTimeout(()=>{
+                            location.reload()
+                        }, 1000);
+                    });
+                }
+            }
+
+        </script>
+
+
+    </body>
+</html>

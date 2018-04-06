@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Admin Area | Search Results</title>
+
+        <link href="/css/bootstrap.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="/fonts/glyphicons-halflings-regular.ttf">
+        <link rel="stylesheet" href="/css/styles.css" type="text/css">
+
+        <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+        <script src="https://cdn.ckeditor.com/ckeditor5/1.0.0-alpha.2/classic/ckeditor.js"></script>
+
+    </head>
+
+    <body style="height: 100%">
+
+        <nav class="navbar navbar-default">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" datatarget="#navbar"
+                        aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/admin/home">Aapni Dukan</a>
+            </div>
+            <div id="navbar" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="/admin/index">Dashboard</a></li>
+                    <li><a href="/admin/products">Categories</a></li>
+                    <li class="active"><a href="/admin/categories">Products</a></li>
+                    <li><a href="/admin/users">Users</a></li>
+                    <li><a href="/admin/orders">Orders</a></li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/admin/auth/login">Log Out</a></li>
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+
+        <br><br><br>
+
+        <section id="breadcrumbs">
+            <div class="container">
+                <ol class="breadcrumb">
+                    <li><a href="/admin/home">Dashboard</a></li>
+                    <li>/</li>
+                    <li><a href="/admin/products">Products</a></li>
+                    <li>/</li>
+                    <li class="active">Search Results for: <%= searchString %></li>
+                </ol>
+            </div>
+        </section>
+        <br> <br>
+
+        <section id="main">
+            <div class="container">
+                <table class="table table-striped table-bordered table-hover align-middle">
+                    <tr>
+                        <th class="text-center"> Title </th>
+                        <th class="text-center"> Image </th>
+                        <th class="text-center"> Category </th>
+                        <th class="text-center"> Status </th>
+                        <th class="text-center"> Quantity </th>
+                        <th class="text-center"> Price </th>
+                        <th class="text-center"> Edit  </th>
+                        <th class="text-center"> Delete </th>
+                    </tr>
+
+                    <% result.forEach( (product) => { %>
+                        <tr class="text-center" style="background-color: white">
+
+                            <td style="color: #333333"><%= product.title %></td>
+                            <td style="color: #333333">
+                                <% if(product.image == ""){ %>
+                                    <img id="productImg" src="http://res.cloudinary.com/aapni-dukan/image/upload/v1521246069/noimage.png" alt="Product Thumbnail">
+                                <% } else { %>
+                                    <img id="productImg" src="<%= product.image %>" >
+                                <% } %>
+                            </td>
+                            <td style="color: #333333"><%= product.category %></td>
+                            <td style="color: #333333"><%= product.status %></td>
+                            <td style="color: #333333"><%= product.quantity %></td>
+                            <td style="color: #333333"> &#8377; <%= product.price %></td>
+
+                            <td>
+                                <a href="/admin/products/edit-product/<%= product._id %>">
+                                    <button type="button" class="btn btn-primary btn-sm">Edit</button>
+                                </a>
+                            </td>
+                            <td>
+                                <a href="/admin/products/delete-product/<%= product._id %>">
+                                    <button type="button" class="btn btn-danger btn-sm">Delete</button>
+                                </a>
+                            </td>
+                        </tr>
+                    <% }) %>
+
+                </table>
+            </div>
+        </section>
+
+        <footer
+                style="background-color: #333333;
+                    padding: 30px;
+                    color: white;
+                    bottom: 0;
+                    width: 100%;
+                    position: absolute;
+                    margin-top: 30px;
+                    vertical-align: center;
+                    text-align: center">
+
+            <p>Copyright &copy; Aapni Dukan 2018</p>
+        </footer>
+
+    </body>
+
+</html>

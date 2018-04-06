@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Admin Area | Account Login</title>
+
+        <link href="/css/bootstrap.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="/fonts/glyphicons-halflings-regular.ttf">
+        <link rel="stylesheet" href="/css/styles.css" type="text/css">
+
+        <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+    </head>
+    <body>
+
+    <nav class="navbar navbar-default">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" datatarget="#navbar"
+                        aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="login.ejs">Aapni Dukan Admin</a>
+            </div>
+            <div id="navbar" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/admin/auth/register">Register</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header id="header">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-md-12">
+                    <h2 style="vertical-align: middle;" class="text-center">Account Login</h2>
+                </div>
+
+            </div>
+        </div>
+    </header>
+
+    <section id="main">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3">
+                    <form id="login" action="/admin/auth/login" method="post" class="well-lg" style="margin-top: 30px">
+                        <div class="form-group">
+                            <label>Email Address</label>
+                            <input type="email" name="email" placeholder="Email Address" class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" name="password" placeholder="Password" class="form-control">
+                        </div>
+
+                        <button type="submit" class="btn btn-default btn-block">Login</button>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <br> <br>
+
+    <footer
+            style="background-color: #333333;
+                    padding: 30px;
+                    color: white;
+                    bottom: 0;
+                    width: 100%;
+                    position: absolute;
+                    margin-top: 30px;
+                    vertical-align: center;
+                    text-align: center">
+
+        <p>Copyright &copy; Aapni Dukan 2018</p>
+    </footer>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="/js/bootstrap.js"></script>
+
+    </body>
+</html>

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Admin Area | Product Details</title>
+
+        <link href="/css/bootstrap.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="/fonts/glyphicons-halflings-regular.ttf">
+        <link rel="stylesheet" href="/css/styles.css" type="text/css">
+
+        <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+        <script src="https://cdn.ckeditor.com/ckeditor5/1.0.0-alpha.2/classic/ckeditor.js"></script>
+
+    </head>
+
+    <body>
+
+        <nav class="navbar navbar-default">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" datatarget="#navbar"
+                            aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/admin/home">Aapni Dukan</a>
+                </div>
+                <div id="navbar" class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="/admin/home">Dashboard</a></li>
+                        <li><a href="/admin/categories">Categories</a></li>
+                        <li class="active"><a href="/admin/products">Products</a></li>
+                        <li><a href="/admin/users">Users</a></li>
+                        <li><a href="/admin/orders">Orders</a></li>
+                    </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="/admin/auth/logout">Log Out</a></li>
+                    </ul>
+
+                </div>
+            </div>
+        </nav>
+
+        <header id="header">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-md-10">
+                        <h2 style="vertical-align: middle"><span class="glyphicon glyphicon-cog" style="margin-right: 6px;" aria-hidden="true"></span>Product Details</h2>
+                    </div>
+
+                </div>
+            </div>
+        </header>
+
+        <section id="breadcrumbs">
+            <div class="container">
+                <ol class="breadcrumb">
+                    <li><a href="/admin/home">Dashboard</a> </li>
+                    <li>/</li>
+                    <li><a href="/admin/products">Products</a> </li>
+                    <li>/</li>
+                    <li class="active"><%= title %></li>
+                </ol>
+            </div>
+        </section>
+
+        <section id="main">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="list-group">
+                            <a href="#" class="list-group-item active main-color-bg">
+                                <span style="padding-right: 6px" class="glyphicon glyphicon-cog"></span>Users
+                            </a>
+                            <a href="/admin/categories" class="list-group-item">
+                                <span style="margin-right: 6px" class="glyphicon glyphicon-folder-close"></span>
+                                Categories
+                                <span class="badge categoriesCount"><%= catCount %></span>
+                            </a>
+
+                            <a href="/admin/products" class="list-group-item">
+                                <i style="margin-right: 6px" class="far fa-list-alt"></i>
+                                Products
+                                <span class="badge" id="productsCount"><%= prodCount %></span>
+                            </a>
+
+                            <a href="/admin/orders" class="list-group-item">
+                                <i style="margin-right: 6px" class="fas fa-cart-plus"></i>
+                                Orders
+                                <span class="badge" id="ordersCount"><%= orderCount %></span> <!-- get data from mongo -->
+                            </a>
+
+                            <a href="/admin/users" class="list-group-item">
+                                <i style="margin-right: 6px" class="fas fa-users"></i>
+                                Users
+                                <span class="badge" id="usersCount"><%= userCount %></span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="col-md-9">
+
+                        <!-- Describe Product Details -->
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"> <%= title %> </h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+
+                                    <div class="col-md-6" style="color: #333333">
+
+                                        <% if (image != "") { %>
+                                            <img src="<%= image %>" alt="" width="200"
+                                                 height="300"
+                                                 class="text-center"
+                                                 style="margin-left: 130px!important;">
+                                        <% } else { %>
+                                            <img class="text-center"
+                                                 src="http://res.cloudinary.com/aapni-dukan/image/upload/v1521246069/noimage.png"
+                                                 width="200"
+                                                 height="300"
+                                                 alt="Single Item Image">
+                                        <% } %>
+
+                                        <hr>
+
+                                        <h3>Product Title</h3>
+                                        <h4><%= title %></h4>
+                                        <br> <hr>
+
+                                        <h3>Product Description</h3>
+                                        <h4><%= desc %></h4>
+                                        <br> <hr>
+
+                                        <h3>Product Price</h3>
+                                        <h4>&#8377; <%= price %></h4>
+                                        <br> <hr>
+
+                                        <h3>Product Category</h3>
+                                        <h4><%= category %></h4>
+                                        <br> <hr>
+
+                                        <h3>Product Quantity</h3>
+                                        <h4><%= quantity %></h4>
+                                        <br> <hr>
+
+                                        <h3>Product Status</h3>
+                                        <h4><%= status %></h4>
+                                        <br>
+
+                                    </div>
+
+                                    <div class="col-md-5"
+                                         style="color: #333333;
+                                         margin-left: 15px!important;
+                                         margin-right: 15px!important;
+                                         border: 1px solid #2b542c; border-radius: 10px;">
+
+                                        <h3>Product Gallery Images</h3>
+
+                                        <ul class="galleryImagesView">
+                                            <% if (galleryImages != "") { %>
+                                                <li>
+                                                    <img src="http://res.cloudinary.com/aapni-dukan/image/upload/v1521246069/noimage.png"
+                                                         alt="gallery-images-view" height="150" width="150">
+                                                </li> <hr>
+                                                <li>
+                                                    <img src="http://res.cloudinary.com/aapni-dukan/image/upload/v1521246069/noimage.png"
+                                                         alt="gallery-images-view" height="150" width="150">
+                                                </li> <hr>
+                                            <% } else { %>
+                                                <div class="no-gallery-imgs" style="color: #333333">
+                                                    <h3>There Are No Gallery Images For This Product Yet</h3>
+                                                </div>
+                                            <% } %>
+                                        </ul>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <footer
+                style="background-color: #333333;
+                                            padding: 30px;
+                                            color: white;
+                                            margin-top: 30px;
+                                            text-align: center">
+
+            <p>Copyright &copy; Aapni Dukan 2018</p>
+        </footer>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="/js/bootstrap.js"></script>
+        <script src="//cdn.ckeditor.com/4.8.0/full/ckeditor.js"></script>
+
+        <script>
+
+            CKEDITOR.replace('desc_name');
+
+            function showImage (){
+                if (this.files && this.files[0]){
+                    let r = new FileReader();
+                    r.onload = ((data) => {
+                        let img = document.getElementById("imgPreview");
+                        img.src = data.target.result;
+                        img.style.display = "block";
+                    });
+                    r.readAsDataURL(this.files[0]);
+                }
+            }
+        </script>
+
+    </body>
+
+</html>
